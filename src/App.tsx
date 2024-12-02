@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import Table from './Table/Table';
 import Money from './Table/Money/Money';
+import FullInput from './components/FullInput';
 
 export type CarsType = {
   manufacturer: string
@@ -36,6 +37,12 @@ function App() {
     {manufacturer:'Audi', model:'rs6'}
   ];
 
+  const [message, setMessage] = useState([
+    {message: 'message1'},
+    {message: 'message2'},
+    {message: 'message3'},
+  ]);
+
   let arrMoney = money;
 
   if(filter === 'Dollars') {
@@ -50,10 +57,20 @@ function App() {
     setFilter(filter);
   }
 
+  const addTask = (title: string) => {
+    setMessage([{message: title}, ...message]);
+  }
+
   return (
     <div className="App">
-      <Table cars={topCars}/>
-      <Money data={arrMoney} changeFilterMoney={changeFilterMoney}/>
+      {/*<Table cars={topCars}/>*/}
+      {/*<Money data={arrMoney} changeFilterMoney={changeFilterMoney}/>*/}
+      <FullInput addTask={addTask}/>
+      {message.map((m, index) => {
+        return (
+          <div key={index}>{m.message}</div>
+        )
+      })}
     </div>
   );
 }
