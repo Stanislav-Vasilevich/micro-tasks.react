@@ -1,25 +1,27 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {FC, useState} from 'react';
+import Button from './Button';
+import Input from './Input';
 
 type PropsType = {
   addTask: (title: string) => void
 }
 
 const FullInput: FC<PropsType> = (props) => {
-  const [title, setTitle] = useState('');
+  const [value, setValue] = useState('');
 
-  const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value);
+  const onChange = (title: string) => {
+    setValue(title);
   }
 
-  const addTaskHandler = () => {
-    props.addTask(title);
-    setTitle('');
+  const addTask = () => {
+    props.addTask(value);
+    setValue('');
   }
 
   return (
     <div>
-      <input type="text" onChange={onChangeInputHandler} value={title}/>
-      <button onClick={addTaskHandler}>+</button>
+      <Input onChange={onChange} value={value}/>
+      <Button onClick={addTask} name={"+"}/>
     </div>
   );
 };
