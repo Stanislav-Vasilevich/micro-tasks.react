@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import './App.css';
-import Table from './Table/Table';
-import Money from './Table/Money/Money';
-import FullInput from './components/FullInput';
+import Table from './components/Table/Table';
+import Money from './components/Money/Money';
+import {v1} from 'uuid';
 
 export type CarsType = {
+  id: string
   manufacturer: string
   model: string
 }
@@ -18,6 +19,12 @@ export type MoneyType = {
 export type FilterMoneyType = 'all' | 'Dollars' | 'RUBLS';
 
 function App() {
+  const topCars: CarsType[] = [
+    {id: v1(), manufacturer:'BMW', model:'m5cs'},
+    {id: v1(), manufacturer:'Mercedes', model:'e63s'},
+    {id: v1(), manufacturer:'Audi', model:'rs6'}
+  ];
+
   const money = [
     { banknots: 'Dollars', value: 100, number: ' a1234567890' },
     { banknots: 'Dollars', value: 50, number: ' z1234567890' },
@@ -31,46 +38,37 @@ function App() {
 
   const [filter, setFilter] = useState<FilterMoneyType>('all');
 
-  const topCars: Array<CarsType> = [
-    {manufacturer:'BMW', model:'m5cs'},
-    {manufacturer:'Mercedes', model:'e63s'},
-    {manufacturer:'Audi', model:'rs6'}
-  ];
+  const changeFilter = () => {
+    let arrMoney = money;
 
-  const [message, setMessage] = useState([
-    {message: 'message1'},
-    {message: 'message2'},
-    {message: 'message3'},
-  ]);
+    if(filter === 'Dollars') {
+      arrMoney = money.filter(m => m.banknots === 'Dollars');
+    }
 
-  let arrMoney = money;
+    if(filter === 'RUBLS') {
+      arrMoney = money.filter(m => m.banknots === 'RUBLS')
+    }
 
-  if(filter === 'Dollars') {
-    arrMoney = money.filter(m => m.banknots === 'Dollars');
-  }
-
-  if(filter === 'RUBLS') {
-    arrMoney = money.filter(m => m.banknots === 'RUBLS')
+    return arrMoney;
   }
 
   const changeFilterMoney = (filter: FilterMoneyType) => {
     setFilter(filter);
   }
 
-  const addTask = (title: string) => {
-    setMessage([{message: title}, ...message]);
-  }
-
   return (
     <div className="App">
-      <Table cars={topCars}/>
-      <Money data={arrMoney} changeFilterMoney={changeFilterMoney}/>
-      <FullInput addTask={addTask}/>
-      {message.map((m, index) => {
-        return (
-          <div key={index}>{m.message}</div>
-        )
-      })}
+      <h1>Самостоятельное задание:</h1>
+
+      <div className="block">
+        <h2>Понедельник(1 занятие)</h2>
+        <Table cars={topCars}/>
+      </div>
+
+      <div className="block">
+        <h2>Понедельник(2 занятие)</h2>
+        <Money data={changeFilter()} changeFilterMoney={changeFilterMoney} filter={filter}/>
+      </div>
     </div>
   );
 }
