@@ -1,6 +1,7 @@
 import {FC, useState} from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import s from './FullInput.module.css';
 
 type PropsType = {
   addTask: (title: string) => void
@@ -8,6 +9,7 @@ type PropsType = {
 
 const FullInput: FC<PropsType> = (props) => {
   const [value, setValue] = useState('');
+  const [error, setError] = useState('');
 
   const onChange = (title: string) => {
     setValue(title);
@@ -19,9 +21,22 @@ const FullInput: FC<PropsType> = (props) => {
   }
 
   return (
-    <div>
-      <Input onChange={onChange} value={value}/>
-      <Button onClick={addTask} name={"+"}/>
+    <div className={s.fullInput}>
+      <Input onChange={onChange}
+             value={value}
+             error={error}
+             label={'макс 30 символов'}
+             setError={setError}
+             placeholder={'макс 30 символов'}
+             addTask={addTask}
+      />
+      <Button onClick={addTask}
+              name={"+"}
+              value={value}
+              setError={setError}
+              maxLength={30}
+              minLength={2}
+      />
     </div>
   );
 };

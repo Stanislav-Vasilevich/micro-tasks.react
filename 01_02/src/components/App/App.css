@@ -12,7 +12,7 @@ h2 {
 }
 
 .block {
-  width: max-content;
+  width: 500px;
   background: lightgrey;
   border-radius: 20px;
   padding: 35px;

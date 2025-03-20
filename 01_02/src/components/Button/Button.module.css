@@ -1,0 +1,37 @@
+.button {
+  border-top: 1px solid grey;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-left: 0;
+  border-radius: 0 5px 5px 0;
+  color: grey;
+  background: #f1f1f1;
+}
+
+.button:hover {
+  background: #e5e5e5;
+  outline: none;
+  border-top: 1px solid grey;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-left: 0;
+  border-radius: 0 5px 5px 0;
+}
+
+.button:active {
+  background: #d1d1d1;
+  outline: 0;
+}
+
+.button:visited, .button:focus-visible, .button:focus {
+  outline: 0;
+}
+
+.button:disabled {
+  background: #f1f1f1;
+  cursor: no-drop;
+}
+
+.button_disabled {
+  color: #d1d1d1;
+}
