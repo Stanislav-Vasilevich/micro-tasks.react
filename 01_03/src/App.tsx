@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {useState} from 'react';
+import './App.css';
+import {Todolist} from './Todolist';
+import {v1} from 'uuid';
 
-function App() {
-  const [count, setCount] = useState(0)
+export type FilterValuesType = 'all' | 'active' | 'completed';
+
+export const App = () => {
+  let [tasks, setTasks] = useState([
+    {id: v1(), title: 'HTML&CSS', isDone: true},
+    {id: v1(), title: 'JS', isDone: true},
+    {id: v1(), title: 'ReactJS', isDone: false},
+    {id: v1(), title: 'Rest API', isDone: false},
+    {id: v1(), title: 'GraphQL', isDone: false},
+  ]);
+
+  function removeTask(id: string) {
+    let filteredTasks = tasks.filter(t => t.id != id);
+    setTasks(filteredTasks);
+  }
+
+  function addTask(title: string) {
+    let task = {id: v1(), title: title, isDone: false};
+    let newTasks = [task, ...tasks];
+    setTasks(newTasks);
+  }
+
+  let [filter, setFilter] = useState<FilterValuesType>('all');
+
+  function getFilteredTasks() {
+    let tasksForTodolist = tasks;
+
+    switch (filter) {
+      case 'active':
+        tasksForTodolist = tasks.filter(t => !t.isDone);
+        break;
+      case 'completed':
+        tasksForTodolist = tasks.filter(t => t.isDone);
+        break;
+      default:
+        return tasksForTodolist;
+    }
+  }
+
+  function changeFilter(value: FilterValuesType) {
+    setFilter(value);
+  }
+
+  const changeTaskStatus = (taskId: string, isDone: boolean) => {
+    setTasks(tasks.map(t => t.id === taskId ? {...t, isDone} : t));
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <Todolist
+        title="What to learn"
+        tasks={getFilteredTasks()}
+        removeTask={removeTask}
+        changeFilter={changeFilter}
+        addTask={addTask}
+        changeTaskStatus={changeTaskStatus}>
+        <div>
+          <div>Many interesting information</div>
+        </div>
+      </Todolist>
+    </div>
+  );
 }
-
-export default App
