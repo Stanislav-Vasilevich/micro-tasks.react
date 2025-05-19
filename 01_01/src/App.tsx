@@ -58,15 +58,15 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Самостоятельное задание:</h1>
+      <h1>Спринт 01, неделя 01:</h1>
 
       <div className="block">
-        <h2>Понедельник(1 занятие)</h2>
+        <h2>Задание №1</h2>
         <Table cars={topCars}/>
       </div>
 
       <div className="block">
-        <h2>Понедельник(2 занятие)</h2>
+        <h2>Задание №2</h2>
         <Money data={changeFilter()} changeFilterMoney={changeFilterMoney} filter={filter}/>
       </div>
     </div>
