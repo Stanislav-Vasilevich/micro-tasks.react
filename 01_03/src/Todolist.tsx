@@ -1,5 +1,6 @@
 import {KeyboardEvent, ChangeEvent, useRef} from 'react';
 import {FilterValuesType} from './App';
+import * as React from 'react';
 
 type TaskType = {
   id: string
@@ -22,8 +23,8 @@ export const Todolist = (props: PropsType) => {
 
   const addTask = () => {
     if (inputRef.current) {
-      props.addTask(inputRef.current!.value);
-      inputRef.current!.value = '';
+      props.addTask(inputRef.current.value);
+      inputRef.current.value = '';
     }
   }
 
@@ -42,7 +43,7 @@ export const Todolist = (props: PropsType) => {
       <h3>{props.title}</h3>
       <div>
         <input ref={inputRef}
-               onKeyPress={onKeyPressHandler}/>
+               onKeyUp={onKeyPressHandler}/>
         <button onClick={addTask}>+</button>
       </div>
       <ul>
