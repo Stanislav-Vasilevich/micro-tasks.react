@@ -40,7 +40,7 @@ const Input = (props: PropsType) => {
              value={props.value}
              onInput={setErrorHandler}
              onBlur={onBlurHandler}
-             onKeyPress={(e) => onKeyPress(e)}
+             onKeyDown={onKeyPress}
       />
       <span className={s.error}>{props.error && props.error}</span>
       <span className={s.labelText}>{props.value.length > 0 && !props.error ? `${props.label}, вы ввели ${props.value.length}` : ''}</span>

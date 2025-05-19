@@ -22,7 +22,7 @@ function App() {
     <div className="App">
       <h1>Умный input</h1>
       <div className="block">
-        <FullInput addTask={addTask}/>
+        <FullInput addTask={addTask} maxLength={30} minLength={3} />
         <ul className={s.ul}>
           {message.map((m, index) => {
             return (

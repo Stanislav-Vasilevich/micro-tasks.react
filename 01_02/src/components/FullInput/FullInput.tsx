@@ -1,13 +1,15 @@
-import {FC, useState} from 'react';
+import {useState} from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import s from './FullInput.module.css';
 
 type PropsType = {
+  minLength: number
+  maxLength: number
   addTask: (title: string) => void
 }
 
-const FullInput: FC<PropsType> = (props) => {
+const FullInput = ({minLength, maxLength, addTask}: PropsType) => {
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
 
@@ -15,8 +17,8 @@ const FullInput: FC<PropsType> = (props) => {
     setValue(title);
   }
 
-  const addTask = () => {
-    props.addTask(value);
+  const addTaskHandler = () => {
+    addTask(value);
     setValue('');
   }
 
@@ -28,14 +30,15 @@ const FullInput: FC<PropsType> = (props) => {
              label={'макс 30 символов'}
              setError={setError}
              placeholder={'макс 30 символов'}
-             addTask={addTask}
+             addTask={addTaskHandler}
       />
-      <Button onClick={addTask}
+      <Button onClick={addTaskHandler}
               name={"+"}
               value={value}
+              error={error}
               setError={setError}
-              maxLength={30}
-              minLength={2}
+              maxLength={maxLength}
+              minLength={minLength}
       />
     </div>
   );
