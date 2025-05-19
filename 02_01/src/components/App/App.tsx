@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import './App.css';
 import {Todolist} from '../../Todolist';
 import {v1} from 'uuid';
 
@@ -74,8 +73,8 @@ function App() {
           return (
             <Todolist
               key={t.id}
-              todolistId={t.id}
               title={t.title}
+              todolistId={t.id}
               tasks={tasksFilter}
               removeTask={removeTask}
               filter={t.filter}
